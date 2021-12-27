@@ -6,9 +6,14 @@ const VENDOR_ID = 1406;
 const PRODUCT_ID_JOYCON_LEFT = 8198;
 const PRODUCT_ID_JOYCON_RIGHT = 8199;
 
+/*
+  We can also get move events for combinations
+  if we really wanted, just presses for now
+*/
 const EVENTS = {
   LEFT: {
     "0 0 8": "release",
+
     "0 1 8": "minus",
     "0 64 8": "L",
     "0 128 8": "ZL",
@@ -17,6 +22,8 @@ const EVENTS = {
     "2 0 8": "down",
     "1 0 8": "left",
     "0 32 8": "capture",
+    "16 0 8": "SL",
+    "32 0 8": "SR",
 
     "0 4 8": "joystick-in",
     "0 0 0": "joystick-right",
@@ -30,6 +37,7 @@ const EVENTS = {
   },
   RIGHT: {
     "0 0 8": "release",
+
     "0 2 8": "plus",
     "0 64 8": "R",
     "0 128 8": "ZR",
@@ -38,6 +46,8 @@ const EVENTS = {
     "4 0 8": "B",
     "8 0 8": "Y",
     "0 16 8": "home",
+    "16 0 8": "SL",
+    "32 0 8": "SR",
 
     "0 8 8": "joystick-in",
     "0 0 4": "joystick-right",
@@ -69,7 +79,7 @@ class Joycons extends EventEmitter {
     };
 
     const handleData = ({ data, isRight = false }) => {
-      const str = `${data[1].toString()} ${data[2].toString()} ${data[3].toString()}`;
+      const str = `${data[1]} ${data[2]} ${data[3]}`;
       const event = EVENTS[isRight ? "RIGHT" : "LEFT"][str];
 
       if (!event) {

@@ -1,7 +1,12 @@
 {
   "name": "streaming-tools-windows",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "some windows specific scripts that dont run in wsl",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zactopus/streaming-tools-windows.git"
+  },
   "type": "module",
   "exports": "./main.js",
   "scripts": {
@@ -10,7 +15,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "midi": "^2.0.0",
+    "node-fetch": "^2.6.6",
     "node-hid": "^2.1.1"
   },
   "devDependencies": {
