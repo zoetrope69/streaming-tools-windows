@@ -15,15 +15,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0",
-    "midi": "^2.0.0",
-    "node-fetch": "^2.6.6",
-    "node-hid": "^2.1.1"
+    "dotenv": "10.0.0",
+    "midi": "2.0.0",
+    "node-fetch": "2.6.6",
+    "node-hid": "2.1.1"
   },
   "devDependencies": {
-    "eslint": "^8.5.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.5.1"
+    "eslint": "8.5.0",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "prettier": "2.5.1"
   }
 }
