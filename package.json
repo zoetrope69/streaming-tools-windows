@@ -17,18 +17,18 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "10.0.0",
-    "express": "^4.17.2",
+    "express": "4.17.2",
     "midi": "2.0.0",
     "node-fetch": "2.6.6",
     "node-hid": "2.1.1",
     "robotjs": "0.6.0"
   },
   "devDependencies": {
-    "eslint": "^8.6.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "8.6.0",
+    "eslint-config-prettier": "8.3.0",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-prettier": "4.0.0",
     "prettier": "2.5.1",
-    "prettier-eslint": "^13.0.0"
+    "prettier-eslint": "13.0.0"
   }
 }
