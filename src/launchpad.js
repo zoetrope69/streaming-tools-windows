@@ -1,5 +1,7 @@
 import { EventEmitter } from "events";
 
+import getKeyByValue from "./helpers/get-key-by-value.js";
+
 import { getDeviceByName } from "./midi.js";
 
 const GRID_SIZE = 8;
@@ -69,7 +71,7 @@ function mapMidiDataToMessage(midiData) {
     };
   }
 
-  if (rightCircleButtons.hasOwnProperty(number)) {
+  if (Object.prototype.hasOwnProperty.call(rightCircleButtons, number)) {
     return {
       circle: true,
       position: rightCircleButtons[number],
@@ -88,7 +90,7 @@ function mapMessageToMidiData(message) {
   const color = COLORS[message.value];
 
   if (typeof color === "undefined") {
-    return console.error(message.value, "is not a valid colour");
+    return console.error(message.value, "is not a valid colour"); // eslint-disable-line no-console
   }
 
   const isGridPosition = message.grid;
