@@ -19,7 +19,7 @@
     "dotenv": "11.0.0",
     "express": "4.17.2",
     "midi": "2.0.0",
-    "node-fetch": "2.6.6",
+    "node-fetch": "2.6.7",
     "node-hid": "2.1.1",
     "robotjs": "0.6.0"
   },
