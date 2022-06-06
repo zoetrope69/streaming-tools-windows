@@ -18,7 +18,16 @@ export function getDeviceByName(name) {
   const input = new midi.Input();
   const output = new midi.Output();
 
-  const { port } = getPortByName({ input, name });
+  const device = getPortByName({ input, name });
+
+  if (!device) {
+    return {
+      input,
+      output,
+    };
+  }
+
+  const { port } = device;
 
   input.openPort(port);
   output.openPort(port);
