@@ -65,63 +65,68 @@ class Joycons extends EventEmitter {
   constructor() {
     super();
 
-    const left = new HID.HID(VENDOR_ID, PRODUCT_ID_JOYCON_LEFT);
-    const right = new HID.HID(VENDOR_ID, PRODUCT_ID_JOYCON_RIGHT);
+    try {
+      const left = new HID.HID(VENDOR_ID, PRODUCT_ID_JOYCON_LEFT);
+      const right = new HID.HID(VENDOR_ID, PRODUCT_ID_JOYCON_RIGHT);
 
-    const joycon = {
-      left,
-      right,
-    };
+      const joycon = {
+        left,
+        right,
+      };
 
-    this.previousDownEvents = {
-      left: null,
-      right: null,
-    };
+      this.previousDownEvents = {
+        left: null,
+        right: null,
+      };
 
-    const handleData = ({ data, isRight = false }) => {
-      const str = `${data[1]} ${data[2]} ${data[3]}`;
-      const event = EVENTS[isRight ? "RIGHT" : "LEFT"][str];
+      const handleData = ({ data, isRight = false }) => {
+        const str = `${data[1]} ${data[2]} ${data[3]}`;
+        const event = EVENTS[isRight ? "RIGHT" : "LEFT"][str];
 
-      if (!event) {
-        return;
-      }
+        if (!event) {
+          return;
+        }
 
-      if (event === "release") {
-        if (!this.previousDownEvents[isRight ? "right" : "left"]) {
+        if (event === "release") {
+          if (!this.previousDownEvents[isRight ? "right" : "left"]) {
+            return;
+          }
+
+          this.emit("change", {
+            left: !isRight,
+            right: isRight,
+            event: this.previousDownEvents[isRight ? "right" : "left"],
+            state: "up",
+          });
+          this.emit("up", {
+            left: !isRight,
+            right: isRight,
+            event: this.previousDownEvents[isRight ? "right" : "left"],
+          });
+          this.previousDownEvents[isRight ? "right" : "left"] = null;
           return;
         }
 
         this.emit("change", {
           left: !isRight,
           right: isRight,
-          event: this.previousDownEvents[isRight ? "right" : "left"],
-          state: "up",
+          event,
+          state: "down",
         });
-        this.emit("up", {
+        this.emit("down", {
           left: !isRight,
           right: isRight,
-          event: this.previousDownEvents[isRight ? "right" : "left"],
+          event,
         });
-        this.previousDownEvents[isRight ? "right" : "left"] = null;
-        return;
-      }
+        this.previousDownEvents[isRight ? "right" : "left"] = event;
+      };
 
-      this.emit("change", {
-        left: !isRight,
-        right: isRight,
-        event,
-        state: "down",
-      });
-      this.emit("down", {
-        left: !isRight,
-        right: isRight,
-        event,
-      });
-      this.previousDownEvents[isRight ? "right" : "left"] = event;
-    };
-
-    joycon.left.on("data", (data) => handleData({ data }));
-    joycon.right.on("data", (data) => handleData({ data, isRight: true }));
+      joycon.left.on("data", (data) => handleData({ data }));
+      joycon.right.on("data", (data) => handleData({ data, isRight: true }));
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(`Couldn't connect Joycons`);
+    }
   }
 }
 

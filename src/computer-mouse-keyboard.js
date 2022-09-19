@@ -60,10 +60,21 @@ class ComputerMouseKeyboard extends EventEmitter {
         });
       },
 
-      shortcut: ({ key, modifiers }) => {
+      shortcut: ({ key, modifiers, toggleDelayMs }) => {
         if (!key) {
           return;
         }
+
+        if (toggleDelayMs) {
+          // https://robotjs.io/docs/syntax#keytogglekey-down-modifier
+          robot.keyToggle(key, "down", modifiers || []);
+
+          setTimeout(() => {
+            robot.keyToggle(key, "up", modifiers || []);
+          }, toggleDelayMs);
+          return;
+        }
+
         // https://robotjs.io/docs/syntax#keys
         return robot.keyTap(key, modifiers || []);
       },

@@ -61,19 +61,6 @@ app.get("/", async (_request, response) => {
   response.send("Hello World");
 });
 
-app.post(`/keyboard/shortcut`, async (request, response) => {
-  const { key, modifiers, secret } = request.body;
-
-  if (WINDOWS_SECRET !== secret) {
-    response.status(500).json({ error: "Something went wrong" });
-    return;
-  }
-
-  this.keyboard.shortcut(key, modifiers);
-
-  response.json({ success: true });
-});
-
 app.listen(PORT, () => {
   console.info(`Listening on ${host}`); // eslint-disable-line no-console
 });
